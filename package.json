@@ -1,6 +1,6 @@
 {
   "name": "@rlnks/mail-audit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Email HTML quality analysis engine — detect bad practices, score compatibility, get actionable insights before sending.",
   "type": "module",
   "main": "dist/index.cjs",
@@ -14,14 +14,25 @@
     },
     "./rules": "./rules/index.js"
   },
-  "files": ["dist", "rules"],
+  "files": [
+    "dist",
+    "rules"
+  ],
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
-  "keywords": ["email", "html", "audit", "quality", "compatibility", "outlook", "gmail"],
+  "keywords": [
+    "email",
+    "html",
+    "audit",
+    "quality",
+    "compatibility",
+    "outlook",
+    "gmail"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/rlnks/js-mail-audit",
   "dependencies": {
