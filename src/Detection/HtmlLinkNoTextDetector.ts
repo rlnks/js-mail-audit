@@ -1,5 +1,5 @@
 import { AbstractDetector } from './AbstractDetector.js';
-import { parseHtml, walkElements, getAttr, getTextContent, type ChildNode } from './parse5Utils.js';
+import { parseHtml, walkElements, getTextContent, type ChildNode } from './parse5Utils.js';
 import type { Location, DetectionConfig } from '../types.js';
 
 export class HtmlLinkNoTextDetector extends AbstractDetector {
@@ -11,16 +11,12 @@ export class HtmlLinkNoTextDetector extends AbstractDetector {
     for (const el of walkElements(doc)) {
       if (el.tagName !== 'a') continue;
 
-      const text = getTextContent(el).trim();
-      if (text) continue;
+      // Has visible text → not empty
+      if (getTextContent(el).trim()) continue;
 
-      // Check for <img> child with non-empty alt
-      const hasDescriptiveImg = el.childNodes.some((child: ChildNode) => {
-        if (!('tagName' in child) || (child as { tagName: string }).tagName !== 'img') return false;
-        const alt = getAttr(child as typeof el, 'alt');
-        return alt !== undefined && alt.trim() !== '';
-      });
-      if (hasDescriptiveImg) continue;
+      // Has any child element (img, span, etc.) → not our concern; empty-alt-img handles that
+      const hasElementChild = el.childNodes.some((child: ChildNode) => 'tagName' in child);
+      if (hasElementChild) continue;
 
       const loc = el.sourceCodeLocation;
       if (loc) {

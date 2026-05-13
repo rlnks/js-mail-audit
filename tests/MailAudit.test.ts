@@ -242,12 +242,20 @@ describe('MailAudit', () => {
     assertNotTriggered(audit.analyze('<h1>Title</h1><h2>Subtitle</h2><h3>Sub</h3>'), 'heading-order');
   });
 
-  it('link-no-text triggers on <a> with no content', () => {
+  it('link-no-text triggers on completely empty <a>', () => {
     assertTriggered(audit.analyze('<a href="https://example.com"></a>'), 'link-no-text');
+  });
+
+  it('link-no-text triggers on <a> with whitespace only', () => {
+    assertTriggered(audit.analyze('<a href="https://example.com">   </a>'), 'link-no-text');
   });
 
   it('link-no-text does not trigger on <a> with text', () => {
     assertNotTriggered(audit.analyze('<a href="https://example.com">Click here</a>'), 'link-no-text');
+  });
+
+  it('link-no-text does not trigger on <a> with img (even empty alt) — use empty-alt-img for that', () => {
+    assertNotTriggered(audit.analyze('<a href="https://example.com"><img src="img.jpg" alt=""></a>'), 'link-no-text');
   });
 
   // Multiple-whitespace robustness
@@ -255,7 +263,7 @@ describe('MailAudit', () => {
     assertTriggered(audit.analyze('<div  style="display:flex;">x</div>'), 'no-flexbox', 'error');
   });
 
-  it('double space in img tag with descriptive alt does not trigger link-no-text', () => {
+  it('double space in img tag inside link does not trigger link-no-text', () => {
     assertNotTriggered(
       audit.analyze('<a  href="https://example.com"><img  src="img.jpg" alt="Company logo"></a>'),
       'link-no-text',
