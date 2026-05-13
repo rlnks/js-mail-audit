@@ -1,7 +1,7 @@
 import { AbstractDetector } from './AbstractDetector.js';
 import type { Location, DetectionConfig } from '../types.js';
 
-const STYLE_ATTR  = /style\s*=\s*(?:"([^"]*?)"|'([^']*?)')/dgi;
+const STYLE_ATTR  = /\sstyle\s*=\s*(?:"([^"]*?)"|'([^']*?)')/dgi;
 const STYLE_BLOCK = /<style[^>]*>([\s\S]*?)<\/style>/dgi;
 
 export class CssPropertyDetector extends AbstractDetector {

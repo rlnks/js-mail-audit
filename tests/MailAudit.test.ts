@@ -250,6 +250,23 @@ describe('MailAudit', () => {
     assertNotTriggered(audit.analyze('<a href="https://example.com">Click here</a>'), 'link-no-text');
   });
 
+  // Multiple-whitespace robustness
+  it('double space before style attribute still triggers no-flexbox', () => {
+    assertTriggered(audit.analyze('<div  style="display:flex;">x</div>'), 'no-flexbox', 'error');
+  });
+
+  it('double space in img tag with descriptive alt does not trigger link-no-text', () => {
+    assertNotTriggered(
+      audit.analyze('<a  href="https://example.com"><img  src="img.jpg" alt="Company logo"></a>'),
+      'link-no-text',
+    );
+  });
+
+  it('double space preheader div still suppresses preheader-missing', () => {
+    const html = '<html><body><div  style="display:none;overflow:hidden;">Preview</div><p>Body</p></body></html>';
+    assertNotTriggered(audit.analyze(html), 'preheader-missing');
+  });
+
   it('tracking-pixel triggers on 1x1 img', () => {
     assertTriggered(audit.analyze('<img src="https://track.example.com/open.gif" width="1" height="1" alt="">'), 'tracking-pixel');
   });
