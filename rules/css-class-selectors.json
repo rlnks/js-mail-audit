@@ -1,0 +1,42 @@
+{
+  "id": "css-class-selectors",
+  "version": "1.1",
+  "updated_at": "2026-05-12",
+  "source": "https://www.caniemail.com/features/html-attributes-class/",
+  "tier": "free",
+  "severity": "info",
+  "weight": 2,
+  "tags": ["css", "class", "gmail"],
+  "detection": {
+    "type": "style_block",
+    "regex": true,
+    "patterns": ["\\.([a-zA-Z_-][\\w-]*)\\s*[{,:\\[]"]
+  },
+  "affected_clients": {
+    "gmail_web": { "supported": false, "versions": "all" },
+    "gmail_mobile": { "supported": false, "versions": "all" },
+    "outlook_desktop": { "supported": true },
+    "apple_mail": { "supported": true }
+  },
+  "message": {
+    "en": "CSS class selectors detected in a <style> block — Gmail strips class attributes, so these rules won't apply there.",
+    "fr": "Des sélecteurs CSS de classe détectés dans un bloc <style> — Gmail supprime les attributs class, ces règles ne s'appliqueront pas.",
+    "es": "Se detectaron selectores CSS de clase en un bloque <style> — Gmail elimina los atributos class, por lo que estas reglas no se aplicarán.",
+    "de": "CSS-Klassenselektoren in einem <style>-Block erkannt — Gmail entfernt class-Attribute, diese Regeln werden dort nicht angewendet.",
+    "pt": "Seletores CSS de classe detectados em um bloco <style> — Gmail remove atributos class, então essas regras não serão aplicadas lá."
+  },
+  "fix": {
+    "en": "Use class-based styles as progressive enhancement on top of inline styles — critical properties should always have an inline equivalent.",
+    "fr": "Utiliser les styles de classe comme amélioration progressive en plus des styles inline — les propriétés critiques doivent toujours avoir un équivalent inline.",
+    "es": "Usar estilos de clase como mejora progresiva sobre los estilos inline — las propiedades críticas siempre deben tener un equivalente inline.",
+    "de": "Klassenbasierte Styles als progressive Verbesserung über Inline-Styles verwenden — kritische Eigenschaften sollten immer ein Inline-Äquivalent haben.",
+    "pt": "Usar estilos de classe como melhoria progressiva sobre os estilos inline — propriedades críticas devem sempre ter um equivalente inline."
+  },
+  "success_message": {
+    "en": "No class-based CSS rules in style blocks detected.",
+    "fr": "Aucune règle CSS basée sur des classes dans des blocs style détectée.",
+    "es": "No se detectaron reglas CSS basadas en clases en bloques style.",
+    "de": "Keine klassenbasierten CSS-Regeln in Style-Blöcken erkannt.",
+    "pt": "Nenhuma regra CSS baseada em classes em blocos style detectada."
+  }
+}
