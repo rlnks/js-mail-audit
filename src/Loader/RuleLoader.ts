@@ -1,9 +1,20 @@
-import { readdirSync, readFileSync } from 'node:fs';
+import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Rule } from '../types.js';
 
-const RULES_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'rules');
+function findRulesDir(): string {
+  const here = dirname(fileURLToPath(import.meta.url));
+  // Compiled (dist/index.js): one level up
+  const fromDist = join(here, '..', 'rules');
+  if (existsSync(fromDist)) return fromDist;
+  // Source (src/Loader/RuleLoader.ts, e.g. vitest): two levels up
+  const fromSrc = join(here, '..', '..', 'rules');
+  if (existsSync(fromSrc)) return fromSrc;
+  throw new Error(`Cannot find rules directory (searched: ${fromDist}, ${fromSrc})`);
+}
+
+const RULES_DIR = findRulesDir();
 
 export class RuleLoader {
   constructor(private readonly bundledRules?: Rule[]) {}
