@@ -14,7 +14,7 @@
       "patterns": ["<style"]
     },
     "fallback": {
-      "type": "css_property",
+      "type": "html_content",
       "patterns": ["style="]
     }
   },
