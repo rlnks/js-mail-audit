@@ -1,6 +1,6 @@
 {
   "name": "@rlnks/mail-audit",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Email HTML quality analysis engine — detect bad practices, score compatibility, get actionable insights before sending.",
   "type": "module",
   "main": "dist/index.cjs",
